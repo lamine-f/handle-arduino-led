@@ -17,59 +17,55 @@
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
+    // Fonction pour changer le thème
     function changeTheme(theme) {
-        if (theme == "on"){
+        if (theme == "on") {
             document.body.setAttribute("class", "led-on");
             btn.innerHTML = "Eteindre";
             btn.setAttribute("class", "btn-on");
-
-        }else{
-            document.body.setAttribute("class","led-off");
+        } else {
+            document.body.setAttribute("class", "led-off");
             btn.innerHTML = "Allumer";
             btn.setAttribute("class", "btn-off");
-
         }
     }
 
-
-    //const serverIP = "http://172.16.0.3:8000/"
-    //const serverIP = "http://10.7.100.237:8000/"
-   
+    // Sélectionner le bouton
     const btn = document.querySelector("button#btn");
-    var clientState = null
+    var clientState = null;
 
-    // Establish a WebSocket connection
+    // Établir une connexion WebSocket
     const socket = io();
     socket.on("connect", () => {
         socket.emit('s-id', socket.id);
     });
 
+    // Écouter les actions du serveur
     socket.on('action', (state) => {
         clientState = state;
         changeTheme(clientState);
     });
 
+    // Gérer le clic sur le bouton
     btn.addEventListener("click", () => {
-        if (clientState == "on"){
+        if (clientState == "on") {
             socket.emit('action', "off");
             clientState = "off";
 
-            fetch("/off").then( (res) => {
-                res.json()
-                //.then((res_value) => console.log(res_value))
+            fetch("/off").then((res) => {
+                res.json();
+                //.then((res_value) => console.log(res_value));
             });
-
-
-        }else{
+        } else {
             socket.emit('action', "on");
             clientState = "on";
 
-            fetch("/on").then( (res) => {
-                res.json()
-                //.then((res_value) => console.log(res_value))
+            fetch("/on").then((res) => {
+                res.json();
+                //.then((res_value) => console.log(res_value));
             });
         }
-    })
+    });
 </script>
 
 
