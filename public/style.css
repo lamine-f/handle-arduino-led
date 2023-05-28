@@ -1,0 +1,49 @@
+*{
+    margin: 0px;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.led-off{
+    filter: invert(1);
+    background: #000;
+}
+
+.led-on{
+    filter: invert(0);
+}
+
+div.container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-self: center;
+    gap: 1em;
+}
+
+div.container button{
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+
+}
+
+div.container button:hover{
+    cursor: pointer;
+}
+
+div.container button.btn-off:hover {
+    background: #df34c8;
+
+} 
+
+div.container button.btn-on:hover{
+    background: #34df34;
+}
